@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS ADMIN | @eoo_gomes3</title>
+    <style>
+        /* Bloqueia seleção de texto em todo o site */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+        
+        body { 
+            background: #0a0a0a; 
+            color: #bc13fe; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+
+        .panel { 
+            background: #111; 
+            border: 2px solid #bc13fe; 
+            padding: 35px; 
+            border-radius: 15px; 
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.4); 
+            text-align: center; 
+            width: 360px; 
+        }
+
+        h1 { font-size: 22px; margin-bottom: 15px; text-shadow: 0 0 10px #bc13fe; }
+        input, select, button { 
+            width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #bc13fe; 
+            color: white; border-radius: 8px; margin-bottom: 15px; outline: none; 
+        }
+
+        button { background: #bc13fe; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        button:hover { background: #9c10d4; box-shadow: 0 0 15px #bc13fe; }
+
+        #key-box { 
+            margin-top: 20px; padding: 12px; background: #000; border: 1px dashed #bc13fe; 
+            color: #fff; font-family: monospace; display: none; border-radius: 5px; 
+        }
+        
+        #main-content { display: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="login-screen" class="panel">
+        <h1>NEXUS AUTH 🛡️</h1>
+        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Acesso Restrito ao Desenvolvedor</p>
+        <input type="password" id="pass-field" placeholder="Digite a Senha Admin">
+        <button onclick="login()">ACESSAR PAINEL</button>
+    </div>
+
+    <div id="main-content" class="panel">
+        <h1>KEY GEN V4 🛰️</h1>
+        <select id="plan">
+            <option value="DAILY">PLANO DAILY (24H)</option>
+            <option value="WEEKLY">PLANO WEEKLY (7 DIAS)</option>
+            <option value="MONTHLY">PLANO MONTHLY (30 DIAS)</option>
+            <option value="LIFETIME">PLANO LIFETIME (ETERNO)</option>
+        </select>
+        <button onclick="gen()">GERAR NOVA KEY</button>
+        <div id="key-box"></div>
+        <button id="copy-btn" style="display:none; background:#222; margin-top: 10px;" onclick="copy()">COPIAR CHAVE</button>
+    </div>
+
+<script>
+    // 🛡️ ANTI-INVASOR: Bloqueia F12, Ctrl+U, Ctrl+Shift+I
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    function login() {
+        const p = document.getElementById('pass-field').value;
+        if (p === "admin0807") {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        } else {
+            alert("SENHA INCORRETA! @eoo_gomes3");
+        }
+    }
+
+    function gen() {
+        const type = document.getElementById('plan').value;
+        const code = Math.random().toString(36).substring(2, 9).toUpperCase();
+        const key = `NEXUS-${type}-${code}`;
+        document.getElementById('key-box').innerText = key;
+        document.getElementById('key-box').style.display = 'block';
+        document.getElementById('copy-btn').style.display = 'block';
+    }
+
+    function copy() {
+        const t = document.getElementById('key-box').innerText;
+        navigator.clipboard.writeText(t);
+        alert("Key copiada com sucesso!");
+    }
+</script>
+</body>
+</html>
